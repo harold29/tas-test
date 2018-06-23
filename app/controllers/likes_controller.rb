@@ -1,5 +1,5 @@
 class LikesController < ApplicationController
-  before_action :set_like, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:create, :show, :update, :destroy]
 
   # GET /likes
   def index
@@ -10,32 +10,34 @@ class LikesController < ApplicationController
 
   # GET /likes/1
   def show
-    json_response(@like)
+    json_response(@user.like)
   end
 
   # POST /likes
   def create
-    @like = Like.create!(like_params)
+    logger.debug @user
+    @user.like = Like.create!(like_params)
 
-    json_response(@like)
+    json_response(@user.like)
   end
 
   # PATCH/PUT /likes/1
   def update
-    @like.update(like.params)
+    logger.debug @user.inspect
+    @user.like.update(like_params)
     head :no_content
   end
 
   # DELETE /likes/1
   def destroy
-    @like.destroy
+    @user.like.destroy
     head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_like
-      @like = Like.find(params[:id])
+    def set_user
+      @user = User.find(params[:user_id])
     end
 
     # Only allow a trusted parameter "white list" through.
