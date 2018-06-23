@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    self.primary_key = 'email'
+  has_one :like
 end

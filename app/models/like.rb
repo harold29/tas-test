@@ -1,3 +1,3 @@
 class Like < ApplicationRecord
-    belongs_to :user, foreign_key: 'email'
+  belongs_to :user
 end
